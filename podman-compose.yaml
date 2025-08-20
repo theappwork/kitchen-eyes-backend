@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14.18-alpine3.22
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: theappwork
+    ports:
+      - "5432:5432"
+    volumes:
+      - /$PWD/.postgres:/var/lib/postgresql/data:Z
+      - /$PWD/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/:Z
+
+  redis:
+    image: redis:8.0.3-alpine3.21
+    environment:
+      REDIS_PASSWORD: securepassword
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning --requirepass $REDIS_PASSWORD
+    volumes:
+      - /$PWD/.redis:/data:Z
+
+    

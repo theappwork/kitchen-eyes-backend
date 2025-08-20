@@ -1,0 +1,22 @@
+{
+  "name": "Node.js & TypeScript",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+  "containerUser": "node",
+  "containerEnv": {
+    "HOME": "/home/node"
+  },
+  "runArgs": ["--userns=keep-id:uid=1000,gid=1000"],
+  "features": {},
+  "forwardPorts": [8080],
+  "postCreateCommand": "whoami && ls -lsa /IdeaProjects/",
+  "customizations": {
+    "jetbrains": {
+      "settings": {
+        "com.intellij:app:HttpConfigurable.use_proxy_pac": true
+      },
+      "backend": "WebStorm"
+    }
+  },
+  "remoteUser": "node",
+  "updateRemoteUserUID": true
+}
