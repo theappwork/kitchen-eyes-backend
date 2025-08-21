@@ -25,15 +25,18 @@ import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnect
                 const REDIS_PORT = +config.get<number>('REDIS_PORT', 6379);
                 const REDIS_USER = config.get<string>('REDIS_USER', '');
                 const REDIS_PASSWORD = config.get<string>('REDIS_PASSWORD', 'securepassword');
-                const CACHE_DEFAULT_TTL = config.get<number>('CACHE_DEFAULT_TTL', 60 * 60);
-                return {
-                    ttl: CACHE_DEFAULT_TTL,
-                    stores: ['development', 'e2e'].includes(config.get<string>('NODE_ENV', 'development')) ? [] : [
-                        new Keyv({
-                            store: new CacheableMemory({ttl: CACHE_DEFAULT_TTL, lruSize: 5000}),
-                        }),
+                const CACHE_DEFAULT_TTL = config.get<number>('CACHE_DEFAULT_TTL', 60 * 60 * 1000);
+                const environment = config.get<string>('NODE_ENV', 'development');
+
+                const stores = environment === 'e2e' ? [] : environment === 'development' ?
+                    [new Keyv({store: new CacheableMemory({ttl: CACHE_DEFAULT_TTL, lruSize: 5000}),})] :
+                    [
+                        new Keyv({store: new CacheableMemory({ttl: CACHE_DEFAULT_TTL, lruSize: 5000}),}),
                         createKeyv(`redis://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}`)
                     ]
+
+                return {
+                    stores: stores
                 }
             },
         }),

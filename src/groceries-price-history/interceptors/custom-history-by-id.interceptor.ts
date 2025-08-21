@@ -13,9 +13,15 @@ const cacheInterceptorTrackBy = (context: ExecutionContext, reflector: Reflector
         return cacheKey.replace('$id', historyId);
 }
 
+/**
+ * Custom interceptor to cache history by id
+ * Just for the sake of example
+ */
 @Injectable()
 export class CustomHistoryByIdInterceptor extends CacheInterceptor {
+    /* istanbul ignore next */
     protected trackBy(context: ExecutionContext): string | undefined {
+        // ignored as 'trackBy' is a protected method.
         return cacheInterceptorTrackBy(context, this.reflector);
     }
 }

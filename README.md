@@ -1,14 +1,16 @@
 # Kitchen Eyes
 
-So, I was one day thinking: what I could do with my Raspberry Pi?. 
+So, I was one day thinking: 
+
+> What could I do with my Raspberry Pi?. 
 
 I recently bought one and thinking about buying two more, I was planning on build a cluster and doing other stuff.
 
-<quote>Why not build something for my kitchen?</quote>
+> Why not build something for my kitchen?
 
 I remembered, back in the day, about "smart" fridges, having a screen and doing some other stuff (I think it had only a browser, gallery of photos, pretty basic stuff).
 
-<quote>Maybe I can build something better. why not track groceries and give my kitchen (or fridge) the ability to notify me when I have to re-stock?, maybe track my expenses?, create lists of groceries?, etc.</quote>
+> Maybe I can build something better. Why not track groceries and give my kitchen (or fridge) the ability to notify me when I have to re-stock?, maybe track my expenses?, create lists of groceries?, etc.
 
 And that is how "Kitchen Eyes" was born. Basically, a solution for the questions above (and more).
 
@@ -16,9 +18,9 @@ And that is how "Kitchen Eyes" was born. Basically, a solution for the questions
 
 Feel free to drop a comment or open an issue if you have any questions, enhancements or suggestions.
 
-## Disclaimer
+## Just for the record ...
 
-It's not meant to be publicly available, it is a solution for a personal problem at home. If you like the idea, feel free to fork it.
+This project is not meant to be public, it's going to be deployed at a local network (and I thought on show it up here for "portfolio purposes"). If you like the idea, feel free to fork it.
 
 ## Technology Stack
 
@@ -40,4 +42,5 @@ The API provides endpoints to manage groceries:
 - `POST /groceries` - Create a new grocery item
 - `PUT /groceries/:id` - Update an existing grocery item
 - `GET /groceries/:id/history` - Get price history for a specific grocery item
+- `GET /places` - Retrieve all places
 

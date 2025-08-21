@@ -94,6 +94,9 @@ export class GroceriesService {
     }
 
     async history(groceryId: string): Promise<GroceryPriceHistoryDto[]> {
+        const cachedValue = await this.cache.get(GroceriesService.CACHE_HISTORY_KEY.replace('$id', groceryId));
+        if (cachedValue) return cachedValue as GroceryPriceHistoryDto[];
+
         const history = await this.historyRepo.find({where: {grocery: {id: groceryId}}, order: {date_bought: 'DESC'}});
         return GroceryPriceHistoryDto.fromEntities(history);
     }

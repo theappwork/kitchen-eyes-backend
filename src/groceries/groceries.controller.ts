@@ -21,7 +21,6 @@ export class GroceriesController {
     @ApiQuery({ name: 'place', required: false, description: 'Filter by place id' })
     @ApiQuery({ name: 'cursor', required: false, description: 'Pagination cursor' })
     @ApiQuery({ name: 'limit', required: false, description: 'Max items to return (default 20, max 100)' })
-    @CacheTTL(60 * 60)
     findAll(@Query() query?: FindGroceriesQueryDto) {
         return this.groceriesService.findAll(query);
     }
@@ -31,7 +30,7 @@ export class GroceriesController {
     @ApiParam({ name: 'id', type: String, description: 'Grocery ID (UUID)' })
     @ApiOkResponse({ description: 'Price history entries (newest first)', type: GroceryPriceHistoryDto, isArray: true })
     @CacheKey(GroceriesService.CACHE_HISTORY_KEY)
-    @CacheTTL(60 * 60)
+    @CacheTTL(5 * 60 * 1000)
     @UseInterceptors(CustomHistoryByIdInterceptor)
     history(@Param('id') id: string) {
         return this.groceriesService.history(id);
